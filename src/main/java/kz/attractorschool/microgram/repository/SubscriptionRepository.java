@@ -1,4 +1,8 @@
 package kz.attractorschool.microgram.repository;
 
-public interface SubscriptionRepository {
+import kz.attractorschool.microgram.entity.Comment;
+import kz.attractorschool.microgram.entity.Subscription;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface SubscriptionRepository extends MongoRepository<Subscription, String> {
 }
