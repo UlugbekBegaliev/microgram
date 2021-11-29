@@ -23,4 +23,11 @@ public class User {
     private Integer countOfFollowers = 0;
     private Integer countOfSubscribe = 0;
 
+    public static User createUser(String username, String email, String password){
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(password);
+        return user;
+    }
 }
