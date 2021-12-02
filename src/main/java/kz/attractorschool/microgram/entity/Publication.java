@@ -1,7 +1,6 @@
 package kz.attractorschool.microgram.entity;
 
 
-import kz.attractorschool.microgram.service.ImageService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

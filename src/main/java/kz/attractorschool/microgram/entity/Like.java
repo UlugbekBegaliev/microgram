@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -18,6 +19,8 @@ public class Like {
 
     @Id
     private String id;
+
+    @Indexed
     private User user;
     private Publication publication;
     private LocalDate localDate;
