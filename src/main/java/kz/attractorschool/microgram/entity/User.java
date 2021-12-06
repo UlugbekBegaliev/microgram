@@ -1,36 +1,33 @@
 package kz.attractorschool.microgram.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
+import java.util.List;
+
+@Builder
 @AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @Document(collection = "users")
+@Data
 public class User {
 
-    @Id
-    private String id;
-    private String email;
-
+    private String fullName;
     @Indexed
     private String username;
+    @Id
+    private String email;
     private String password;
-    private Integer countOfPosts = 0;
-    private Integer countOfFollowers = 0;
-    private Integer countOfSubscribe = 0;
+    private int numOfPosts = 0;
+    private int numOfFollowers;
+    private int numOfFollowings;
 
-    public static User createUser(String username, String email, String password){
-        User user = new User();
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(password);
-        return user;
+    public User(String fullName, String username, String email, String password) {
+        this.fullName = fullName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 }
