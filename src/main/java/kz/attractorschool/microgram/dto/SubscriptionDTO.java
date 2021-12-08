@@ -3,6 +3,8 @@ package kz.attractorschool.microgram.dto;
 import kz.attractorschool.microgram.entity.Subscription;
 import kz.attractorschool.microgram.entity.User;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +14,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class SubscriptionDTO {
 
+    private String id;
+    private User follower;
+    private User following;
+    private LocalDateTime dateTime;
+
     public static SubscriptionDTO from(Subscription subscription){
         return builder()
                 .id(subscription.getId())
@@ -20,9 +27,4 @@ public class SubscriptionDTO {
                 .dateTime(subscription.getDateTime())
                 .build();
     }
-
-    private String id;
-    private User following;
-    private User follower;
-    private LocalDateTime dateTime;
 }

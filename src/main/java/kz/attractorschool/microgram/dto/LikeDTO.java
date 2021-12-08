@@ -4,6 +4,8 @@ import kz.attractorschool.microgram.entity.Like;
 import kz.attractorschool.microgram.entity.Publication;
 import kz.attractorschool.microgram.entity.User;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.time.LocalDateTime;
 
@@ -12,17 +14,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class LikeDTO {
-    public static LikeDTO from(Like like){
+
+    private String id;
+    private User userLiker;
+    private Publication publication;
+    private LocalDateTime dateTime;
+
+    public static LikeDTO from(Like like) {
         return builder()
                 .id(like.getId())
-                .user(like.getUser())
+                .userLiker(like.getUserLiker())
                 .publication(like.getPublication())
                 .dateTime(like.getDateTime())
                 .build();
     }
-
-    private String id;
-    private User user;
-    private Publication publication;
-    private LocalDateTime dateTime;
 }
+

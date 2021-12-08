@@ -14,10 +14,11 @@ import java.util.List;
 @Data
 public class User {
 
-    private String fullName;
+    @Id
+    private String id;
     @Indexed
     private String username;
-    @Id
+    private String fullName;
     private String email;
     private String password;
     private int numOfPosts = 0;
