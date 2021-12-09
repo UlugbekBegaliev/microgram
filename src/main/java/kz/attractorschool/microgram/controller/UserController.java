@@ -27,8 +27,8 @@ public class UserController {
     private final PublicationService publicationService;
 
     @ApiIgnore
-    @GetMapping("/user/posts")
-    public Page<PublicationDTO> findPostsByEmail(@ApiIgnore Pageable pageable, Authentication authentication) {
+    @GetMapping("/user/publications")
+    public Page<PublicationDTO> findPublicationsByEmail(@ApiIgnore Pageable pageable, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return publicationService.findPublicationsByEmail(pageable, user.getEmail());
     }

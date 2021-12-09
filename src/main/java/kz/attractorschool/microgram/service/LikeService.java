@@ -34,7 +34,7 @@ public class LikeService {
         return likeRepository.findAllByLikerEmail((java.awt.print.Pageable) pageable, user.getEmail()).map(LikeDTO::from);
     }
 
-    public Page<LikeDTO> findLikesByPostId(Pageable pageable, String publicationId) {
+    public Page<LikeDTO> findLikesByPublicationId(Pageable pageable, String publicationId) {
         Page<Like> likes = likeRepository.findAllByPublicationId((java.awt.print.Pageable) pageable, publicationId);
         return likes.map(LikeDTO::from);
     }

@@ -75,7 +75,7 @@ public class UserService {
         user.setNumOfFollowings(subscriptionRepository.countBySubscriberEmail(user.getEmail()));
     }
 
-    public List<PublicationDTO> findOtherPosts(Pageable pageable, String username) {
+    public List<PublicationDTO> findOtherPublications(Pageable pageable, String username) {
         Page<User> users = userRepository.findAllByUsernameNotContains(pageable, username);
         Page<Publication> publications = publicationRepository.findAll((org.springframework.data.domain.Pageable) pageable);
 

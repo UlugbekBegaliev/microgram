@@ -26,7 +26,7 @@ public class LikeController {
         return likeService.findOtherLikes(pageable, authentication);
     }
 
-    @PostMapping("/{postId}")
+    @PostMapping("/{publicationId}")
     public LikeDTO like(@PathVariable String publicationId,
                         Authentication authentication) {
         String likerName = authentication.getName();
