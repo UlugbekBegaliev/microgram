@@ -9,5 +9,6 @@ import java.awt.print.Pageable;
 
 public interface PublicationRepository extends MongoRepository<Publication, String> {
     int countByUserEmail(String email);
+
     Page<Publication> findAllByUserEmail(Pageable pageable, String email);
 }

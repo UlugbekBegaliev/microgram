@@ -5,8 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
@@ -21,7 +19,7 @@ public class User {
     private String fullName;
     private String email;
     private String password;
-    private int numOfPosts = 0;
+    private int numOfPublications = 0;
     private int numOfFollowers;
     private int numOfFollowings;
 

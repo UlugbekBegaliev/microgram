@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.awt.print.Pageable;
 
 public interface CommentRepository extends MongoRepository<Comment, String> {
-    int countByPublicationId(String postId);
-    Slice<Comment> findAllByPublicationId(Pageable pageable, String postId);
+    int countByPublicationId(String publicationId);
+
+    Slice<Comment> findAllByPublicationId(Pageable pageable, String publicationId);
 }

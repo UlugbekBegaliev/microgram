@@ -8,7 +8,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.awt.print.Pageable;
 
 public interface LikeRepository extends MongoRepository<Like, String> {
-    int countByPostId(String postId);
-    Page<Like> findAllByPublicationId(Pageable pageable, String postId);
-    Page<Like> findAllByUserEmail(Pageable pageable, String email);
+    int countByPublicationId(String publicationId);
+
+    Page<Like> findAllByPublicationId(Pageable pageable, String publicationId);
+
+    Page<Like> findAllByLikerEmail(Pageable pageable, String email);
 }

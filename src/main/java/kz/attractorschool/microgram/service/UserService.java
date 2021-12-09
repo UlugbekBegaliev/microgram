@@ -10,7 +10,6 @@ import kz.attractorschool.microgram.repository.PublicationRepository;
 import kz.attractorschool.microgram.repository.SubscriptionRepository;
 import kz.attractorschool.microgram.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 public class UserService {
     private UserRepository userRepository;
     private PublicationRepository publicationRepository;
@@ -31,73 +29,90 @@ public class UserService {
 
     public Slice<UserDTO> findUsers(Pageable pageable) {
         Page<User> slice = userRepository.findAll((org.springframework.data.domain.Pageable) pageable);
-        updateNumbers(User.builder().build());
+        updateNumbers(slice);
         return slice.map(UserDTO::from);
     }
 
     public UserDTO findUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("Can't find user with the name: " + username));
+                .orElseThrow(() -> new ResourceNotFoundException("Не удается найти пользователя с таким именем: " + username));
         updateNumbers(user);
         return UserDTO.from(user);
     }
 
-    private void updateNumbers(User user) {
-    }
-
     public UserDTO findUserByEmail(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("Can't find user with the email: " + email));
+                .orElseThrow(() -> new ResourceNotFoundException("Не удается найти пользователя с адресом электронной почты: " + email));
         updateNumbers(user);
         return UserDTO.from(user);
     }
 
     public String existsUserByEmail(String email) {
         if (userRepository.existsByEmail(email)) {
-            return "There's a user with email: " + email;
+            return "Пользователь с данной электронной почтой найден:  " + email;
         } else {
-            return "There's no user with email: " + email;
+            return "Пользователь с данной электронной почтой не найден: " + email;
         }
     }
 
     public Slice<UserDTO> findOtherUsers(Pageable pageable, String username) {
         Page<User> slice = userRepository.findAllByUsernameNotContains(pageable, username);
-        updateNumbers(User.builder().build());
+        updateNumbers(slice);
         return slice.map(UserDTO::from);
     }
 
-    public List<PublicationDTO> findOtherPosts(Pageable pageable, String username){
+    private void updateNumbers(Iterable<User> users) {
+        users.forEach(user -> {
+            user.setNumOfPublications(publicationRepository.countByUserEmail(user.getEmail()));
+            user.setNumOfFollowers(subscriptionRepository.countBySubscriptionEmail(user.getEmail()));
+            user.setNumOfFollowings(subscriptionRepository.countBySubscriberEmail(user.getEmail()));
+        });
+    }
+
+    private void updateNumbers(User user) {
+        user.setNumOfPublications(publicationRepository.countByUserEmail(user.getEmail()));
+        user.setNumOfFollowers(subscriptionRepository.countBySubscriptionEmail(user.getEmail()));
+        user.setNumOfFollowings(subscriptionRepository.countBySubscriberEmail(user.getEmail()));
+    }
+
+    public List<PublicationDTO> findOtherPosts(Pageable pageable, String username) {
         Page<User> users = userRepository.findAllByUsernameNotContains(pageable, username);
         Page<Publication> publications = publicationRepository.findAll((org.springframework.data.domain.Pageable) pageable);
 
-        List<Publication> newPosts = new ArrayList<>();
+        List<Publication> newPublications = new ArrayList<>();
         for (User user : users) {
-            for (Publication publication: publications) {
-                if(user.getEmail().equals(publication.getUser().getEmail())){
-                    newPosts.add(publication);
+            for (Publication publication : publications) {
+                if (user.getEmail().equals(publication.getUser().getEmail())) {
+                    newPublications.add(publication);
                 }
             }
         }
 
-        return  newPosts.stream().map(PublicationDTO::from).collect(Collectors.toList());
+        return newPublications.stream().map(PublicationDTO::from).collect(Collectors.toList());
     }
 
-    public List<PublicationDTO> findPublicationBasedFollowings(Pageable pageable, String email){
+    public List<PublicationDTO> findPublicationsBasedFollowings(Pageable pageable, String email) {
 
         Page<Publication> publications = publicationRepository.findAll((org.springframework.data.domain.Pageable) pageable);
         Page<Subscription> subscriptions = subscriptionRepository.findAllBySubscriberEmail(pageable, email);
-        List<Publication> newPosts = new ArrayList<>();
+        List<Publication> newPublications = new ArrayList<>();
 
-        for (Publication publication: publications) {
+        for (Publication publication : publications) {
             for (Subscription subscription : subscriptions) {
-                if (publication.getUser().getEmail().equals(subscription.getFollower().getEmail())) {
-                    newPosts.add(publication);
+                if (publication.getUser().getEmail().equals(subscription.getFollowing().getEmail())) {
+                    newPublications.add(publication);
                 }
             }
         }
 
 
-        return  newPosts.stream().map(PublicationDTO::from).collect(Collectors.toList());
+        return newPublications.stream().map(PublicationDTO::from).collect(Collectors.toList());
     }
+
+    public boolean removeUser(String username) {
+        userRepository.deleteByUsername(username);
+        return true;
+    }
+
 
 }
