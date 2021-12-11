@@ -4,9 +4,11 @@ import kz.attractorschool.microgram.entity.Comment;
 import kz.attractorschool.microgram.entity.Like;
 import org.springframework.data.domain.Page;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
 import java.awt.print.Pageable;
 
+@Repository
 public interface LikeRepository extends MongoRepository<Like, String> {
     int countByPublicationId(String publicationId);
 
