@@ -3,8 +3,6 @@ package kz.attractorschool.microgram.dto;
 import kz.attractorschool.microgram.entity.Subscription;
 import kz.attractorschool.microgram.entity.User;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.time.LocalDateTime;
 

@@ -12,20 +12,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 public class User {
 
-    @Id
-    private String id;
     @Indexed
     private String username;
     private String fullName;
+    @Id
     private String email;
     private String password;
     private int numOfPublications = 0;
     private int numOfFollowers;
     private int numOfFollowings;
 
-    public User(String fullName, String username, String email, String password) {
-        this.fullName = fullName;
+    public User(String username, String fullName, String email, String password) {
         this.username = username;
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
     }

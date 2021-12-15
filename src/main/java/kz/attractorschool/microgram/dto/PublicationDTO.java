@@ -30,6 +30,7 @@ public class PublicationDTO {
                 .numOfLikes(publication.getNumOfLikes())
                 .numOfComments(publication.getNumOfComments())
                 .dateTime(publication.getDateTime())
+                .image(publication.getImage())
                 .build();
     }
 }
