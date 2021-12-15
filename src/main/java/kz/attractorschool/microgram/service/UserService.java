@@ -13,22 +13,29 @@ import kz.attractorschool.microgram.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Slice;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class UserService {
-    private UserRepository userRepository;
-    private PublicationRepository publicationRepository;
-    private SubscriptionRepository subscriptionRepository;
+public class UserService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+    private final PublicationRepository publicationRepository;
+    private final SubscriptionRepository subscriptionRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     public Slice<UserDTO> findUsers(Pageable pageable) {
-        Page<User> slice = userRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+        Page<User> slice = userRepository.findAll(pageable);
         updateNumbers(slice);
         return slice.map(UserDTO::from);
     }
@@ -77,7 +84,7 @@ public class UserService {
 
     public List<PublicationDTO> findOtherPublications(Pageable pageable, String username) {
         Page<User> users = userRepository.findAllByUsernameNotContains(pageable, username);
-        Page<Publication> publications = publicationRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+        Page<Publication> publications = publicationRepository.findAll(pageable);
 
         List<Publication> newPublications = new ArrayList<>();
         for (User user : users) {
@@ -93,7 +100,7 @@ public class UserService {
 
     public List<PublicationDTO> findPublicationsBasedFollowings(Pageable pageable, String email) {
 
-        Page<Publication> publications = publicationRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+        Page<Publication> publications = publicationRepository.findAll(pageable);
         Page<Subscription> subscriptions = subscriptionRepository.findAllBySubscriberEmail(pageable, email);
         List<Publication> newPublications = new ArrayList<>();
 
@@ -104,9 +111,20 @@ public class UserService {
                 }
             }
         }
-
-
         return newPublications.stream().map(PublicationDTO::from).collect(Collectors.toList());
+    }
+
+    public UserDTO register(UserDTO userDTO){
+        User user = User
+                .builder()
+                .username(userDTO.getUsername())
+                .fullName(userDTO.getFullName())
+                .email(userDTO.getEmail())
+                .password(userDTO.getPassword())
+                .build();
+
+        userRepository.save(user);
+        return UserDTO.from(user);
     }
 
     public boolean removeUser(String username) {
@@ -114,5 +132,11 @@ public class UserService {
         return true;
     }
 
-
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty())
+            throw new UsernameNotFoundException("Пользователь не существует!");
+        return optionalUser.get();
+    }
 }
