@@ -12,9 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
 import org.springframework.data.domain.Pageable;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -31,11 +29,11 @@ public class LikeService {
 
     public Page<LikeDTO> findOtherLikes(Pageable pageable, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return likeRepository.findAllByLikerEmail((java.awt.print.Pageable) pageable, user.getEmail()).map(LikeDTO::from);
+        return likeRepository.findAllByLikerEmail(pageable, user.getEmail()).map(LikeDTO::from);
     }
 
     public Page<LikeDTO> findLikesByPublicationId(Pageable pageable, String publicationId) {
-        Page<Like> likes = likeRepository.findAllByPublicationId((java.awt.print.Pageable) pageable, publicationId);
+        Page<Like> likes = likeRepository.findAllByPublicationId(pageable, publicationId);
         return likes.map(LikeDTO::from);
     }
 

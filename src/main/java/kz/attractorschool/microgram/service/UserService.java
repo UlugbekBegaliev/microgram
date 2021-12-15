@@ -5,6 +5,7 @@ import kz.attractorschool.microgram.dto.UserDTO;
 import kz.attractorschool.microgram.entity.Publication;
 import kz.attractorschool.microgram.entity.Subscription;
 import kz.attractorschool.microgram.entity.User;
+import org.springframework.data.domain.Pageable;
 import kz.attractorschool.microgram.exeptions.ResourceNotFoundException;
 import kz.attractorschool.microgram.repository.PublicationRepository;
 import kz.attractorschool.microgram.repository.SubscriptionRepository;
@@ -14,7 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

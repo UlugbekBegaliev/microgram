@@ -54,7 +54,7 @@ public class CommentService {
     }
 
     public Slice<CommentDTO> findCommentByPublicationId(Pageable pageable, String publicationId){
-        Slice<Comment> comments = commentRepository.findAllByPublicationId((java.awt.print.Pageable) pageable, publicationId);
+        Slice<Comment> comments = commentRepository.findAllByPublicationId(pageable, publicationId);
         return comments.map(CommentDTO::from);
     }
 

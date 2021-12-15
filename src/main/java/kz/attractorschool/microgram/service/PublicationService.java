@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,7 +38,7 @@ public class PublicationService {
     }
 
     public Page<PublicationDTO> findPublicationsByEmail(Pageable pageable, String email) {
-        Page<Publication> publications = publicationRepository.findAllByUserEmail((java.awt.print.Pageable) pageable, email);
+        Page<Publication> publications = publicationRepository.findAllByUserEmail(pageable, email);
         updateNumbers(publications);
         return publications.map(PublicationDTO::from);
     }

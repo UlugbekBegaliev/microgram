@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
-
 import java.util.List;
 
 @RestController
@@ -56,6 +55,6 @@ public class UserController {
     @GetMapping("/story")
     public List<PublicationDTO> findPublicationsBasedFollowings(@ApiIgnore Pageable pageable, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return userService.findPublicationsBasedFollowings((java.awt.print.Pageable) pageable, user.getEmail());
+        return userService.findPublicationsBasedFollowings(pageable, user.getEmail());
     }
 }
