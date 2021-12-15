@@ -21,15 +21,15 @@ import java.util.UUID;
 
 
 @Service
-@NoArgsConstructor
 @AllArgsConstructor
 public class PublicationService {
-    private PublicationRepository publicationRepository;
-    private SubscriptionRepository subscriptionRepository;
-    private UserRepository userRepository;
-    private LikeRepository likeRepository;
-    private CommentRepository commentRepository;
-    private ImageRepository imageRepository;
+
+    private final PublicationRepository publicationRepository;
+    private final SubscriptionRepository subscriptionRepository;
+    private final UserRepository userRepository;
+    private final LikeRepository likeRepository;
+    private final CommentRepository commentRepository;
+    private final ImageRepository imageRepository;
 
     public Page<PublicationDTO> findPublications(Pageable pageable) {
         Page<Publication> publications = publicationRepository.findAll(pageable);
@@ -47,7 +47,7 @@ public class PublicationService {
                                       String description,
                                       Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        String path = "/";
+        String path = "/images/";
         File posterFile = new File(path + poster.getOriginalFilename());
         FileOutputStream outputStream = null;
         try {

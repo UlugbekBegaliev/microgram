@@ -62,6 +62,4 @@ public class CommentService {
         commentRepository.deleteById(commentId);
         return true;
     }
-
-
 }

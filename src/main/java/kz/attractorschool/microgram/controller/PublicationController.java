@@ -1,6 +1,8 @@
 package kz.attractorschool.microgram.controller;
 
+import kz.attractorschool.microgram.annotation.ApiPageable;
 import kz.attractorschool.microgram.dto.CommentDTO;
+import kz.attractorschool.microgram.dto.LikeDTO;
 import kz.attractorschool.microgram.dto.PublicationDTO;
 import kz.attractorschool.microgram.service.CommentService;
 import kz.attractorschool.microgram.service.LikeService;
@@ -26,13 +28,13 @@ public class PublicationController {
     private final CommentService commentService;
 
     @GetMapping("/{publicationId}")
-    public PublicationDTO findPostById(@PathVariable String publicationId) {
+    public PublicationDTO findPublicationById(@PathVariable String publicationId) {
         return publicationService.findUserById(publicationId);
     }
 
-    @ApiIgnore
+    @ApiPageable
     @GetMapping
-    public Page<PublicationDTO> findPublication(@ApiIgnore Pageable pageable) {
+    public Page<PublicationDTO> findPublications(@ApiIgnore Pageable pageable) {
         return publicationService.findPublications(pageable);
     }
 
@@ -43,23 +45,22 @@ public class PublicationController {
         return publicationService.publication(poster, description, authentication);
     }
 
-    @PostMapping("/publication")
-    public PublicationDTO publication(@RequestParam MultipartFile poster,
-                                      @RequestParam String description,
-                                      Authentication authentication) {
-        return publicationService.publication(poster, description, authentication);
-    }
-
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public PublicationDTO publication(@RequestBody PublicationDTO publicationDTO, Authentication authentication) {
         String username = authentication.getName();
         return publicationService.addPublication(publicationDTO, username);
     }
 
-    @ApiIgnore
+    @ApiPageable
     @GetMapping("/{publicationId}/comments")
-    public Slice<CommentDTO> findCommentsByPublicationId(@ApiIgnore Pageable pageable, @PathVariable String postId) {
-        return commentService.findCommentByPublicationId(pageable, postId);
+    public Slice<CommentDTO> findCommentsByPublicationId(@ApiIgnore Pageable pageable, @PathVariable String publicationId) {
+        return commentService.findCommentByPublicationId(pageable, publicationId);
+    }
+
+    @ApiPageable
+    @GetMapping("/{publicationId}/likes")
+    public Page<LikeDTO> findLikesByPublicationId(@ApiIgnore Pageable pageable, @PathVariable String publicationId){
+        return likeService.findLikesByPublicationId(pageable, publicationId);
     }
 
     @DeleteMapping("{publicationId}")
