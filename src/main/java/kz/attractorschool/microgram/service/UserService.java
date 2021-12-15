@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PublicationRepository publicationRepository;
     private final SubscriptionRepository subscriptionRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder encoder;
 
 
     public Slice<UserDTO> findUsers(Pageable pageable) {

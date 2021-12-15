@@ -18,7 +18,6 @@ import java.util.List;
 public class InitDatabase {
 
     private final PasswordEncoder encoder;
-
     private final CommentRepository commentRepository;
     private final LikeRepository likeRepository;
     private final PublicationRepository publicationRepository;
