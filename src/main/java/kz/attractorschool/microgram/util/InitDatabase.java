@@ -36,29 +36,13 @@ public class InitDatabase {
             userRepository.deleteAll();
 
             List<Comment> commentList = new ArrayList<>();
+            commentList.add(new Comment(publicationList.get(0), userList.get(2), "ok"));
+
+
             List<Like> likeList = new ArrayList<>();
             List<Publication> publicationList = new ArrayList<>();
             List<Subscription> subscriptionList = new ArrayList<>();
             List<User> userList = new ArrayList<>();
-
-
-
-
-            User user1 = new User();
-            user1.setEmail("test@test");
-            user1.setPassword(encoder.encode("test"));
-            userRepository.save(user1);
-
-            User user2 = new User();
-            user2.setEmail("guest@test");
-            user2.setPassword(encoder.encode("guest"));
-            userRepository.save(user2);
-
-            User user3 = new User();
-            user3.setEmail("admin@test");
-            user3.setPassword(encoder.encode("admin"));
-            userRepository.save(user3);
-
         };
     }
 }
