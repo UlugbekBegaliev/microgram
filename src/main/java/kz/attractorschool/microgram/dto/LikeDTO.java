@@ -16,14 +16,14 @@ import java.time.LocalDateTime;
 public class LikeDTO {
 
     private String id;
-    private User userLiker;
+    private User liker;
     private Publication publication;
     private LocalDateTime dateTime;
 
     public static LikeDTO from(Like like) {
         return builder()
                 .id(like.getId())
-                .userLiker(like.getUserLiker())
+                .liker(like.getLiker())
                 .publication(like.getPublication())
                 .dateTime(like.getDateTime())
                 .build();

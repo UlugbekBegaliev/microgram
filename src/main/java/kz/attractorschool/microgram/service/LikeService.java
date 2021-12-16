@@ -19,9 +19,10 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class LikeService {
+
+    private final LikeRepository likeRepository;
     private final UserRepository userRepository;
     private final PublicationRepository publicationRepository;
-    private final LikeRepository likeRepository;
 
     public Page<LikeDTO> findLikes(Pageable pageable) {
         return likeRepository.findAll(pageable).map(LikeDTO::from);
@@ -47,7 +48,7 @@ public class LikeService {
 
         Like like = Like.builder()
                 .id(UUID.randomUUID().toString())
-                .userLiker(user)
+                .liker(user)
                 .publication(publication)
                 .dateTime(LocalDateTime.now())
                 .build();
@@ -57,7 +58,7 @@ public class LikeService {
         return LikeDTO.from(like);
     }
 
-    public boolean removeLike(String likeId) {
+    public boolean deleteLike(String likeId) {
         likeRepository.deleteById(likeId);
         return true;
     }

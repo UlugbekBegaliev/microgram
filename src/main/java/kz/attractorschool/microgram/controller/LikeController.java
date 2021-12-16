@@ -35,7 +35,7 @@ public class LikeController {
 
     @DeleteMapping("{likeId}")
     public ResponseEntity<Void> unlike(@PathVariable String likeId) {
-        if (likeService.removeLike(likeId))
+        if (likeService.deleteLike(likeId))
             return ResponseEntity.noContent().build();
         return ResponseEntity.notFound().build();
     }

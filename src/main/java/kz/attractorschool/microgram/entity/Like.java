@@ -19,14 +19,14 @@ public class Like {
     @Id
     private String id;
     @Indexed
-    private User userLiker;
+    private User liker;
     @DBRef
     private Publication publication;
     private LocalDateTime dateTime;
 
-    public Like(User userLiker, Publication publication) {
+    public Like(User liker, Publication publication) {
         this.id = UUID.randomUUID().toString();
-        this.userLiker = userLiker;
+        this.liker = liker;
         this.publication = publication;
         this.dateTime = LocalDateTime.now();
     }
