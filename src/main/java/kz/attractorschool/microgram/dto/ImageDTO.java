@@ -15,7 +15,7 @@ public class ImageDTO {
     @Indexed
     private String imageId;
 
-    public static ImageDTO from(Image image){
+    public static ImageDTO from(Image image) {
         return builder()
                 .imageId(image.getId())
                 .build();

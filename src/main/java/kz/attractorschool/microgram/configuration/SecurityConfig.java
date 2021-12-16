@@ -14,14 +14,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
-    public PasswordEncoder getEncoder(){
+    public PasswordEncoder getEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/comments/*", "comments/*/*",  "/images/**", "/likes/**",
+                .antMatchers("/comments/*", "comments/*/*", "/images/**", "/likes/**",
                         "/publications/*", "/subscriptions/**", "/users/*", "/users/*/*")
                 .authenticated();
 

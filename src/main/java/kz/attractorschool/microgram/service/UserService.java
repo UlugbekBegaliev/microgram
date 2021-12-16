@@ -114,7 +114,7 @@ public class UserService implements UserDetailsService {
         return newPublications.stream().map(PublicationDTO::from).collect(Collectors.toList());
     }
 
-    public UserDTO register(UserDTO userDTO){
+    public UserDTO register(UserDTO userDTO) {
         User user = User
                 .builder()
                 .username(userDTO.getUsername())

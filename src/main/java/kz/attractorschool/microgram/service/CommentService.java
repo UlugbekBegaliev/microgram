@@ -29,7 +29,7 @@ public class CommentService {
         return comments.map(CommentDTO::from);
     }
 
-    public CommentDTO comment(CommentDTO commentDTO, String publicationId, String commenterUsername){
+    public CommentDTO comment(CommentDTO commentDTO, String publicationId, String commenterUsername) {
         Publication publication = publicationRepository
                 .findById(publicationId)
                 .orElseThrow(() -> new ResourceNotFoundException(SYSTEM_RESPONSE_ID + publicationId));
@@ -53,12 +53,12 @@ public class CommentService {
         return CommentDTO.from(comment);
     }
 
-    public Slice<CommentDTO> findCommentByPublicationId(Pageable pageable, String publicationId){
+    public Slice<CommentDTO> findCommentByPublicationId(Pageable pageable, String publicationId) {
         Slice<Comment> comments = commentRepository.findAllByPublicationId(pageable, publicationId);
         return comments.map(CommentDTO::from);
     }
 
-    public boolean removeComment(String commentId){
+    public boolean removeComment(String commentId) {
         commentRepository.deleteById(commentId);
         return true;
     }

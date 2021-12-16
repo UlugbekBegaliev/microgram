@@ -23,7 +23,7 @@ public class CommentDTO {
     private String text;
 
 
-    public static CommentDTO from(Comment comment){
+    public static CommentDTO from(Comment comment) {
         return builder()
                 .id(comment.getId())
                 .commenter(comment.getCommenter())

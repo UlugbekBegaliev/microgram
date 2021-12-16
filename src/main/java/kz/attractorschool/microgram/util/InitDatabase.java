@@ -1,6 +1,7 @@
 package kz.attractorschool.microgram.util;
 
 import java.util.stream.Stream;
+
 import kz.attractorschool.microgram.entity.*;
 import kz.attractorschool.microgram.repository.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +34,8 @@ public class InitDatabase {
         return (args) -> {
             commentRepository.deleteAll();
             likeRepository.deleteAll();
-            publicationRepository.deleteAll();;
+            publicationRepository.deleteAll();
+            ;
             subscriptionRepository.deleteAll();
             userRepository.deleteAll();
 

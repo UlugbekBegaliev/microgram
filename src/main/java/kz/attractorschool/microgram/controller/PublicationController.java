@@ -59,7 +59,7 @@ public class PublicationController {
 
     @ApiPageable
     @GetMapping("/{publicationId}/likes")
-    public Page<LikeDTO> findLikesByPublicationId(@ApiIgnore Pageable pageable, @PathVariable String publicationId){
+    public Page<LikeDTO> findLikesByPublicationId(@ApiIgnore Pageable pageable, @PathVariable String publicationId) {
         return likeService.findLikesByPublicationId(pageable, publicationId);
     }
 

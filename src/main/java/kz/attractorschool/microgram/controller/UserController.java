@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class UserController {
 
     @ApiPageable
     @GetMapping
-    public Slice<UserDTO> findUsers(@ApiIgnore Pageable pageable){
+    public Slice<UserDTO> findUsers(@ApiIgnore Pageable pageable) {
         return userService.findUsers(pageable);
     }
 
@@ -50,6 +51,7 @@ public class UserController {
         User user = (User) authentication.getPrincipal();
         return userService.findOtherUsers(pageable, user.getUsername());
     }
+
     @GetMapping("/explore")
     public List<PublicationDTO> findOtherPublications(@ApiIgnore Pageable pageable, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
@@ -63,7 +65,7 @@ public class UserController {
     }
 
     @GetMapping("/email/exist")
-    public String existUserByEmail(Authentication authentication){
+    public String existUserByEmail(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return userService.existsUserByEmail(user.getEmail());
     }
@@ -75,7 +77,7 @@ public class UserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO register(@RequestBody UserDTO userDTO){
+    public UserDTO register(@RequestBody UserDTO userDTO) {
         return userService.register(userDTO);
     }
 

@@ -7,7 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 
-
 @Repository
 public interface PublicationRepository extends PagingAndSortingRepository<Publication, String> {
     int countByUserEmail(String email);

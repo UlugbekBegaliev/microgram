@@ -17,7 +17,7 @@ public class SubscriptionDTO {
     private User following;
     private LocalDateTime dateTime;
 
-    public static SubscriptionDTO from(Subscription subscription){
+    public static SubscriptionDTO from(Subscription subscription) {
         return builder()
                 .id(subscription.getId())
                 .follower(subscription.getFollower())
