@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubscriptionRepository extends PagingAndSortingRepository<Subscription, String> {
-    int countBySubscriptionEmail(String email);
+    int countByFollowerEmail(String email);
 
-    int countBySubscriberEmail(String email);
+    int countByFollowingEmail(String email);
 
-    Page<Subscription> findAllBySubscriberEmail(Pageable pageable, String email);
+    Page<Subscription> findAllByFollowerEmail(Pageable pageable, String email);
 }

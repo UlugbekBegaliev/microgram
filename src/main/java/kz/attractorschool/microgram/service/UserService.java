@@ -71,15 +71,15 @@ public class UserService implements UserDetailsService {
     private void updateNumbers(Iterable<User> users) {
         users.forEach(user -> {
             user.setNumOfPublications(publicationRepository.countByUserEmail(user.getEmail()));
-            user.setNumOfFollowers(subscriptionRepository.countBySubscriptionEmail(user.getEmail()));
-            user.setNumOfFollowings(subscriptionRepository.countBySubscriberEmail(user.getEmail()));
+            user.setNumOfFollowers(subscriptionRepository.countByFollowingEmail(user.getEmail()));
+            user.setNumOfFollowings(subscriptionRepository.countByFollowerEmail(user.getEmail()));
         });
     }
 
     private void updateNumbers(User user) {
         user.setNumOfPublications(publicationRepository.countByUserEmail(user.getEmail()));
-        user.setNumOfFollowers(subscriptionRepository.countBySubscriptionEmail(user.getEmail()));
-        user.setNumOfFollowings(subscriptionRepository.countBySubscriberEmail(user.getEmail()));
+        user.setNumOfFollowers(subscriptionRepository.countByFollowingEmail(user.getEmail()));
+        user.setNumOfFollowings(subscriptionRepository.countByFollowerEmail(user.getEmail()));
     }
 
     public List<PublicationDTO> findOtherPublications(Pageable pageable, String username) {
@@ -101,7 +101,7 @@ public class UserService implements UserDetailsService {
     public List<PublicationDTO> findPublicationsBasedFollowings(Pageable pageable, String email) {
 
         Page<Publication> publications = publicationRepository.findAll(pageable);
-        Page<Subscription> subscriptions = subscriptionRepository.findAllBySubscriberEmail(pageable, email);
+        Page<Subscription> subscriptions = subscriptionRepository.findAllByFollowerEmail(pageable, email);
         List<Publication> newPublications = new ArrayList<>();
 
         for (Publication publication : publications) {
