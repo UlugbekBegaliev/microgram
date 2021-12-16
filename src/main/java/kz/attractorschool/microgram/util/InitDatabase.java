@@ -60,7 +60,7 @@ public class InitDatabase {
             publicationList.add(new Publication(Generator.makeDescription(), userList.get(7), "image"));
             publicationList.add(new Publication(Generator.makeDescription(), userList.get(8), "image"));
             publicationList.add(new Publication(Generator.makeDescription(), userList.get(9), "image"));
-            publicationList.add(new Publication(Generator.makeDescription(), userList.get(10), "image"));
+            publicationList.add(new Publication(Generator.makeDescription(), userList.get(0), "image"));
 
             Stream.of(publicationList).peek(publications -> publications.forEach(System.out::println)).forEach(publicationRepository::saveAll);
 
@@ -74,15 +74,15 @@ public class InitDatabase {
             commentList.add(new Comment(publicationList.get(7), userList.get(7), "comment"));
             commentList.add(new Comment(publicationList.get(8), userList.get(8), "comment"));
             commentList.add(new Comment(publicationList.get(9), userList.get(9), "comment"));
-            commentList.add(new Comment(publicationList.get(10), userList.get(10), "comment"));
+            commentList.add(new Comment(publicationList.get(0), userList.get(0), "comment"));
 
             Stream.of(commentList).peek(comments -> comments.forEach(System.out::println)).forEach(commentRepository::saveAll);
 
             List<Like> likeList = new ArrayList<>();
             likeList.add(new Like(userList.get(4), publicationList.get(1)));
             likeList.add(new Like(userList.get(9), publicationList.get(2)));
-            likeList.add(new Like(userList.get(7), publicationList.get(10)));
-            likeList.add(new Like(userList.get(10), publicationList.get(7)));
+            likeList.add(new Like(userList.get(7), publicationList.get(0)));
+            likeList.add(new Like(userList.get(0), publicationList.get(7)));
             likeList.add(new Like(userList.get(6), publicationList.get(9)));
             likeList.add(new Like(userList.get(8), publicationList.get(4)));
             likeList.add(new Like(userList.get(5), publicationList.get(3)));
@@ -93,7 +93,7 @@ public class InitDatabase {
             Stream.of(likeList).peek(likes -> likes.forEach(System.out::println)).forEach(likeRepository::saveAll);
 
             List<Subscription> subscriptionList = new ArrayList<>();
-            subscriptionList.add(new Subscription(userList.get(1), userList.get(10)));
+            subscriptionList.add(new Subscription(userList.get(1), userList.get(0)));
             subscriptionList.add(new Subscription(userList.get(2), userList.get(9)));
             subscriptionList.add(new Subscription(userList.get(3), userList.get(8)));
             subscriptionList.add(new Subscription(userList.get(4), userList.get(7)));
@@ -102,7 +102,7 @@ public class InitDatabase {
             subscriptionList.add(new Subscription(userList.get(7), userList.get(4)));
             subscriptionList.add(new Subscription(userList.get(8), userList.get(3)));
             subscriptionList.add(new Subscription(userList.get(9), userList.get(2)));
-            subscriptionList.add(new Subscription(userList.get(10), userList.get(1)));
+            subscriptionList.add(new Subscription(userList.get(0), userList.get(1)));
 
             Stream.of(subscriptionList).peek(subscriptions -> subscriptions.forEach(System.out::println)).forEach(subscriptionRepository::saveAll);
         };
