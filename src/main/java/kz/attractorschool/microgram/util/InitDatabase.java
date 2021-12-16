@@ -35,7 +35,6 @@ public class InitDatabase {
             commentRepository.deleteAll();
             likeRepository.deleteAll();
             publicationRepository.deleteAll();
-            ;
             subscriptionRepository.deleteAll();
             userRepository.deleteAll();
 
