@@ -2,69 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Microgram</title>
+    <title>Homework62</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body class="no-scroll">
 <div class="container">
-    <div class="row justify-content-center" id = "postContent">
-        <div class="col col-lg-7 posts-container">
-            <form id="newPost" enctype="multipart/form-data" action="http://localhost/9889" method="post">
+    <div class="row"><button class="btn btn-primary" id="sign-out">sign out</button> </div>
+    <div class="row justify-content-center">
+        <div class="col col-lg-7 posts-container" id="posts-cont">
+            <div id="1s" class="1s card my-3">
                 <div>
-                    <input type="hidden" id="user" name="user"/>
-                    <label for="description"></label>
-                    <input type="text" placeholder="Описание" name="description" id="description">
-                    <input type="file" id="imagine" name="image"/>
-                    <button type="button" id="btnSubmit"class="btn btn-light">Загрузить</button>
-                </div>
-            </form>
-            <hr>
-            <div class="card my-3">
-                <div id="image">
-                    <img class="d-block w-100" src="img59.jpg" alt="Post image">
+                    <img class="d-block w-100" src="images/img59.jpg" alt="Post image">
                 </div>
                 <div class="px-4 py-3">
-                    <div id = "options"class="d-flex justify-content-around">
+                    <div class="d-flex justify-content-around">
+				<span class="h1 mx-2 muted">
+				  <i class="far fa-heart"></i>
+				</span>
                         <span class="h1 mx-2 muted">
-                <i class="far fa-heart"></i>
-              </span>
-                        <span class="h1 mx-2 muted">
-                <i class="far fa-comment"></i>
-              </span>
+				  <i class="far fa-comment"></i>
+				</span>
                         <span class="mx-auto"></span>
                         <span class="h1 mx-2 muted">
-                <i class="far fa-bookmark"></i>
-              </span>
+				  <i class="far fa-bookmark"></i>
+				</span>
                     </div>
                     <hr>
+                    <div class="com-upload-form" id="comFor-1s" hidden>
+                        <form id="com-form" class="com-form">
+                            <input type="hidden" name="postId" value="1s"/>
+                            <textarea placeholder="Comment" name="comment"> </textarea>
+                            <br>
+                            <button type="button" id="comment">comment</button>
+                        </form>
+                    </div>
                     <div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum ad est cumque nulla voluptatem enim voluptas minima illum quis!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum ad est cumque nulla voluptatem enim voluptas minima illum quis!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum ad est cumque nulla voluptatem enim voluptas minima illum quis!</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum ad est cumque nulla
+                            voluptatem enim voluptas minima illum quis! Voluptatibus dolorem minus tempore aliquid
+                            corrupti nesciunt, obcaecati fuga natus officiis.</p>
                     </div>
                     <hr>
-                    <div class="comments" id="newCom" >
-                        <div class="py-2 pl-3 comment">
-                            <a href="#" class="muted">User Example</a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum ad est cumque nulla voluptatem enim voluptas minima illum quis!</p>
-                        </div>
+                    <div id="comments" class="com">
                     </div>
-                    <form id="form">
-                        <input type="hidden" id="User1" name="user"/>
-                        <textarea placeholder="Добавить комментарий" id="test" style="height: 50px; width: 460px;"></textarea>
-                        <button id="btnButton" type="submit">Опубликовать</button>
-                    </form>
                 </div>
             </div>
         </div>
-        <div id = "posts-container" class="col col-lg-7 posts-container"></div>
     </div>
+    <div class="img-upload-form" id="img-upload">
+        <form id="upl-form" enctype=multipart/form-data">
+            <input type="file" placeholder="Image" name="image">
+            <br>
+            <textarea placeholder="Description" name="description"></textarea>
+            <br>
+            <button type="button" id="upload">upload</button>
+        </form>
+    </div>
+
+    <button type="submit" class="upload btn border border-secondary border-rounded bg-light">add post</button>
 </div>
+
 <section id="page-splash" class="page-splash">
-    <div class="card" id="registration-form">
-        <button id = "button" type="button" class="btn btn-secondary" style="padding: 15px;"><h4>Войти</h4></button>
+    <div id="log" class="d-flex justify-content-center" hidden>
+        <div class="mx-3">
+            <h3>Вход</h3>
+            <form id="login-form">
+                <input type="text" name="username" class="form-control mb-1" placeholder="Логин"><br>
+                <input type="password" name="password" class="form-control mb-1" placeholder="Пароль"><br>
+                <button type="submit" class="btn btn-outline-primary btn-block">Login</button><br>
+                <a href="/registration" class="btn btn-outline-primary btn-block">Registration</a>
+            </form>
+        </div>
     </div>
 </section>
 

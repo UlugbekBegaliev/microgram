@@ -1,4 +1,19 @@
-'use strict';
+'use strict'
+
+const baseUrl = 'http://localhost:9889';
+
+function showSplashScreen() {
+    let screen = document.getElementById("page-splash");
+    screen.style.visibility = "visible";
+    document.body.classList.add("no-scroll");
+}
+
+function hideSplashScreen() {
+    let screen = document.getElementById("page-splash");
+    screen.style.visibility = "hidden";
+    document.body.classList.remove("no-scroll");
+}
+
 window.addEventListener('load', function () {
 
     const savePostButton = document.getElementById("btnSubmit");
@@ -31,7 +46,7 @@ async function f() {
     const formData = new FormData();
     const fileField = document.querySelector('input[type="file"]');
 
-    formData.append('username', 'abc123');
+    formData.append('username', 'user777');
     formData.append('avatar', fileField.files[0]);
 
     try {
@@ -45,7 +60,6 @@ async function f() {
     } catch (error) {
         console.error('Ошибка!', error);
     }
-
 
 }
 f();
@@ -63,7 +77,7 @@ class Comment {
     this.user = user,
     this.post = post,
     this.comment = comment;
-  } 
+  }
 };
 class Post {
   constructor(id, userId, image, description) {
@@ -79,7 +93,7 @@ function authorize(user) {
 }
 const user = new User(1, "Robby Williams", "rwilliams@gmail.com", false);
 authorize(user);
-const post = new Post(1, user.id, "images/img59.jpg",  "Lorem ipsum dolor sit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque libero minima corporis accusamus nobis velit.");
+const post = new Post(1, user.id, "img59.jpg",  "Lorem ipsum dolor sit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque libero minima corporis accusamus nobis velit.");
 const user2 = new User(2, "Robin Martin","rmartin@gmail.com", false);
 authorize(user2);
 const comment = new Comment(user2.name, post.id, "I am very grateful for the meeting with you and I would like to discuss other commercial issues.");
@@ -87,7 +101,7 @@ const comment = new Comment(user2.name, post.id, "I am very grateful for the mee
 let posts = [];
 
 function newPost(i) {
-  return new Post(i+2, user.id,  "text" + i, 0);
+  return new Post(i+2, user.id, "text" + i, 0);
 };
 
 for(let i = 0; 6 > i; i++) {
@@ -116,64 +130,14 @@ for(let i = 0; i < posts.length; i++) {
   const signIn= document.getElementById('button');
   signIn.addEventListener('click', hideSplashScreen);
 
-  
-function showSplashScreen(){
-  document.getElementById('page-splash').hidden = false;
-	document.body.classList.add('no-scroll');
-}
-
-function hideSplashScreen(){
-    document.getElementById('page-splash').hidden = true;
-	document.body.classList.remove('no-scroll');
-}
-
 function createCommentElement(comment){
     let elem= document.createElement('div')
     elem.classList.add('py-2');
     elem.classList.add('pl-3');
-    elem.innerHTML = '<a href="#" class="muted">'  + comment.user + '</a>' + 
+    elem.innerHTML = '<a href="#" class="muted">'  + comment.user + '</a>' +
   '<p>' + comment.comment + '</p>';
   return elem;
 }
-
-//function createPostElement(post){
-//  let elem = document.createElement('div');
-//  elem.classList.add('card');
-//  elem.classList.add('my-3');
-//  elem.innerHTML =
-//    '<div class="px-4 py-3">' +
-//    '<div id = "option2" class="d-flex justify-content-around">' +
-//      '<span class="h1 mx-2 muted">' +
-//      '<i class="far fa-heart"></i>' +
-//      '</span>'
-//       +
-//      '<span class="h1 mx-2 muted">' +
-//      '<i class="far fa-comment"></i>' +
-//      '</span>' +
-//      '<span class="mx-auto"></span>' +
-//      '<span class="h1 mx-2 muted">' +
-//      '<i class="far fa-bookmark"></i>' +
-//      '</span>'
-//       +
-//    '</div>' +
-//  '<hr>' +
-//  '<div>' +
-//    '<p>' + post.description + '</p>' +
-//  '</div>' +
-//  '<hr>' +
-//  '<div id="comments" class="comments">' +
-//  '<div class="py-2 pl-3">' +
-//          '<a href="#" class="muted">' + 'someusername' + '</a>' +
-//          '<p>' + 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum ad est cumque nulla voluptatem enim voluptas minima illum quis! Voluptatibus dolorem minus tempore aliquid corrupti nesciunt, obcaecati fuga natus officiis.' + '</p>' +
-//        '</div>' +
-//  '</div>'  +   '<form>' +
-//      '<textarea placeholder="Добавить комментарий..." id="test" style="height: 50px; width: 460px;"></textarea>' +
-//      '<button id="btn"  type="submit">Опубликовать</button>' +
-//      '</form>' + '</div>'
-// ;
-//  return elem;
-//}
-
 
 function addPost(postElement){
     document.getElementById("posts-container").append(postElement);
@@ -211,10 +175,10 @@ for(let i=0; i< bookmark.length; i++){
   })
 }
 
-const postss = document.getElementsByClassName('card');
-for(let i = 0; i < postss.length; i++) {
-    let ims = postss[i].getElementsByClassName('w-100');
-    let he = postss[i].getElementsByClassName('fa-heart')[0];
+const posts = document.getElementsByClassName('card');
+for(let i = 0; i < posts.length; i++) {
+    let ims = posts[i].getElementsByClassName('w-100');
+    let he = posts[i].getElementsByClassName('fa-heart')[0];
     for(let j = 0; j < ims.length; j++) {
         ims[j].addEventListener('dblclick', function() {
           if(he.classList.contains('fas')) {
@@ -270,6 +234,35 @@ async  function fetchAsyncTodos() {
     }
 }
 fetchAsyncTodos();
+
+window.addEventListener('load', function () {
+    const registrationForm = document.getElementById('registration-form');
+
+    registrationForm.addEventListener('submit', onRegisterHandler);
+    function onRegisterHandler(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+        createUser(data);
+    }
+
+    async function createUser(userFormData) {
+        const userJSON = JSON.stringify(Object.fromEntries(userFormData))
+        const settings = {
+            method: 'POST',
+            cache: 'no-cache',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: userJSON
+        }
+
+        const response = await fetch(baseUrl + '/registration', settings).then(res => res.json());
+        console.log(response.id);
+        window.location.href = baseUrl + '/index';
+    }
+})
 
 
 

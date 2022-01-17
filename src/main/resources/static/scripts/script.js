@@ -1,13 +1,15 @@
 'use strict'
 
-function showSplashScreen(){
-    document.getElementById('page-splash').hidden = false;
-	document.body.classList.add('no-scroll');
+function showSplashScreen() {
+    let screen = document.getElementById("page-splash");
+    screen.style.visibility = "visible";
+    document.body.classList.add("no-scroll");
 }
 
-function hideSplashScreen(){
-    document.getElementById('page-splash').hidden = true;
-	document.body.classList.remove('no-scroll');
+function hideSplashScreen() {
+    let screen = document.getElementById("page-splash");
+    screen.style.visibility = "hidden";
+    document.body.classList.remove("no-scroll");
 }
 
 window.addEventListener('load', function () {
@@ -57,7 +59,6 @@ async function f() {
         console.error('Ошибка!', error);
     }
 
-
 }
 f();
 class User {
@@ -90,7 +91,7 @@ function authorize(user) {
 }
 const user = new User(1, "Robby Williams", "rwilliams@gmail.com", false);
 authorize(user);
-const post = new Post(1, user.id, "images/img59.jpg",  "Lorem ipsum dolor sit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque libero minima corporis accusamus nobis velit.");
+const post = new Post(1, user.id, "img59.jpg",  "Lorem ipsum dolor sit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque libero minima corporis accusamus nobis velit.");
 const user2 = new User(2, "Robin Martin","rmartin@gmail.com", false);
 authorize(user2);
 const comment = new Comment(user2.name, post.id, "I am very grateful for the meeting with you and I would like to discuss other commercial issues.");
@@ -98,7 +99,7 @@ const comment = new Comment(user2.name, post.id, "I am very grateful for the mee
 let posts = [];
 
 function newPost(i) {
-  return new Post(i+2, user.id,  "text" + i, 0);
+  return new Post(i+2, user.id, "text" + i, 0);
 };
 
 for(let i = 0; 6 > i; i++) {
